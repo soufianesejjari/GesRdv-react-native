@@ -1,12 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Provider, useDispatch, useSelector } from 'react-redux'; 
+import { store } from './redux/store';
+
+import {checkIfLoggedIn, selectIsAuthenticated } from './redux/reducers/authSlice';
+import Main from './main';
+
+// Création du store Redux avec le rootReducer à l'aide de configureStore
+
 export default function App() {
+ 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <Main/>
+ </Provider>
   );
 }
 

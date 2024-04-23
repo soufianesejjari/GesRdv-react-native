@@ -1,0 +1,5 @@
+export const backgroundC='#e8ecf4'
+export const secondColor='#4AA3A2'
+export const thirdColor='#A7E0E0'
+export const lastColor='#9AC8EB'
+export const darkGreen ='#00353F'
