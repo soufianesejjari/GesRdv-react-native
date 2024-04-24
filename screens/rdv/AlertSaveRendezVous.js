@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { backgroundC, lastColor, secondColor } from '../ConfigTheme';
 
 export default function AlertSaveRendezVous() {
   const route = useRoute();
@@ -15,7 +16,7 @@ export default function AlertSaveRendezVous() {
   const { rendez } = route.params;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#de8744' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: secondColor }}>
       <View style={styles.container}>
         <View style={styles.alert}>
           <View style={styles.alertContent}>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '500',
     marginLeft: 4,
-    color: '#fae4a8',
+    color: backgroundC,
     textAlign: 'center',
   },
   alertTitle: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     lineHeight: 24,
-    color: '#fae4a8',
+    color: backgroundC,
     textAlign: 'center',
     marginBottom: 36,
   },
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderWidth: 1,
-    backgroundColor: '#fff',
-    borderColor: '#fff',
+    backgroundColor: lastColor,
+    borderColor: lastColor,
   },
   btnText: {
     fontSize: 17,

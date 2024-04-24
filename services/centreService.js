@@ -69,8 +69,11 @@ export const updateCentre = async (id, centreData) => {
     throw error;
   }
 };
-export default createCentre= async (centreData) => {
+export const  createOneCentre= async (centreData) => {
+  const token = await AsyncStorage.getItem('token');
+
   try {
+    console.log('start fetch server add centers')
     const response = await axios.post(`${API_URL}/centres`, centreData,{
       headers: {
         Authorization: `Bearer ${token}` // Utilisez le token stocké dans AsyncStorage

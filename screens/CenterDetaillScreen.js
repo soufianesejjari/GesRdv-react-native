@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View,  ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View,  ScrollView, TouchableOpacity, BackHandler } from 'react-native';
 import { useRoute ,useNavigation} from '@react-navigation/native';
 import { backgroundC, darkGreen, lastColor, secondColor, thirdColor } from './ConfigTheme';
 import { Text, Button, Card } from 'react-native-paper';
@@ -7,6 +7,27 @@ import { Text, Button, Card } from 'react-native-paper';
 const CenterDetaillScreen = () => {
   const navigation=useNavigation();
   const route = useRoute();
+
+  
+useEffect(() => {
+  const backAction = () => {  
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate("nav");
+    }
+
+    return true; // Return true to prevent default behavior (going back)
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    'hardwareBackPress',
+    backAction
+  );
+
+  return () => backHandler.remove(); // Cleanup function
+
+}, [navigation]); // Dependency array to ensure effect is re-run if navigation changes
   const { center } = route.params;
 
   // Créer un objet pour regrouper les créneaux par date

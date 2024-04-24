@@ -71,7 +71,7 @@ function CentersScreen({navigation}) {
 
     
         const renderItem = ({ item }) => {
-
+// 
 
         return(
           <Card style={{ margin: 10 }}>

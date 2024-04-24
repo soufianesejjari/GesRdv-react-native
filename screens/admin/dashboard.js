@@ -5,6 +5,11 @@ import Stats from './Stats';
 import { getStats } from '../../services/StatsService';
 import { backgroundC } from '../ConfigTheme';
 
+/**
+ * Renders the dashboard component.
+ *
+ * @returns {JSX.Element} The rendered dashboard component.
+ */
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
 

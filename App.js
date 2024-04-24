@@ -7,14 +7,18 @@ import { store } from './redux/store';
 
 import {checkIfLoggedIn, selectIsAuthenticated } from './redux/reducers/authSlice';
 import Main from './main';
-
+import { NavigationContainer } from '@react-navigation/native';
 // Création du store Redux avec le rootReducer à l'aide de configureStore
 
 export default function App() {
  
   return (
     <Provider store={store}>
+      <NavigationContainer>
       <Main/>
+
+
+      </NavigationContainer>
  </Provider>
   );
 }

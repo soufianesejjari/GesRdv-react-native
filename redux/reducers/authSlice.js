@@ -29,9 +29,12 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     logout(state) {
+      console.log("logu action")
       state.isAuthenticated = false;
       state.user = null;
       state.isAdmin = false;
+      state.loading= false,
+      state.error=null
 
     },
   },
@@ -43,29 +46,18 @@ export const login = (credentials) => async (dispatch) => {
 
   dispatch(loginStart());
   try {
-    const { mail, userName, token ,roles } = await authService.login(credentials);;
-  console.log("chhhhhhhhhhhhof", roles)
-
-    await AsyncStorage.setItem('token', token); // Storing token in AsyncStorage
-    await AsyncStorage.setItem('roles', roles); // Storing token in AsyncStorage
-
+    const { mail, userName, token, roles } = await authService.login(credentials);
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('roles', roles);
     const isAdmin = roles.includes("ADMIN");
-    if(isAdmin){
-      console.log('admindddddddddd')
-      await AsyncStorage.setItem('role', "ADMIN"); // Storing token in AsyncStorage
-
-      dispatch(loginAdmin())
+    if (isAdmin) {
+      await AsyncStorage.setItem('role', "ADMIN");
+    } else {
+     // console.warn("rrrrrrrrrrrrrrrrr", roles);
     }
-    else {
-      console.warn("rrrrrrrrrrrrrrrrr",roles)
-
-    }
-
- //   const user = console.log("user est ",token)
-
-    await AsyncStorage.setItem('token', token); // Storing token in AsyncStorage
-    await AsyncStorage.setItem('mail', mail); 
-    await AsyncStorage.setItem('userName', userName); 
+    await AsyncStorage.setItem('mail', mail);
+    await AsyncStorage.setItem('userName', userName);
+    dispatch(loginAdmin());
     dispatch(loginSuccess(token));
   } catch (error) {
     dispatch(loginFailure(error.message));
@@ -74,6 +66,7 @@ export const login = (credentials) => async (dispatch) => {
 export const inscreption = (credentials) => async (dispatch) => {
   dispatch(loginStart());
   try {
+    console.log("info singUp",credentials)
     const  { mail, userName, token }  = await authService.registre(credentials);
   
     await AsyncStorage.setItem('mail', mail); 
@@ -89,25 +82,26 @@ export const inscreption = (credentials) => async (dispatch) => {
 
 // Function to check if user is logged in
 export const checkIfLoggedIn = () => async (dispatch) => {
-  const token = await AsyncStorage.getItem('token');
-  const roles = await AsyncStorage.getItem('roles');
+  try {
+    const token = await AsyncStorage.getItem('token');
+    //const roles = await AsyncStorage.getItem('roles');
 
-
-  if (token) {
-const isAdmins=  await AsyncStorage.getItem('role' ); 
-if(isAdmins=="ADMIN"){
-  dispatch(loginAdmin())
-}
-else{
-  console.log('he is not admin')
-
-}
-    console.log("token est  ",token)
-    dispatch(loginSuccess({ token }));
+    if (token) {
+      const isAdmins = await AsyncStorage.getItem('role');
+      if (isAdmins === "ADMIN") {
+        dispatch(loginAdmin());
+      } else {
+        
+      }
+      console.log("token est  ", token);
+      dispatch(loginSuccess({ token }));
+    }
+  } catch (error) {
+    console.error("Error checking if user is logged in:", error);
   }
 };
 export const fetchlougOut = () => async (dispatch) => {
-  console.log('start')
+ // console.log('start')
 
   await AsyncStorage.removeItem('token', null); // Storing token in AsyncStorage
   await AsyncStorage.removeItem('mail', null); 
@@ -116,9 +110,10 @@ export const fetchlougOut = () => async (dispatch) => {
   await AsyncStorage.removeItem('roles', null); 
 
   console.log("lougout")
+  dispatch(logout());
+
   if (token) {
     console.log("token est  ",token)
-    dispatch(logout());
   }
 };
 export const selectUser = (state) => state.auth.user;

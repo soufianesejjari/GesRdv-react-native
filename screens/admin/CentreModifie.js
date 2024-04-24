@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -6,12 +6,16 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  BackHandler,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { updateCentre } from '../../services/centreService';
+import { backgroundC, secondColor } from '../ConfigTheme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CentreModifie({ route }) {
+    const navigation=useNavigation()
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
   const { centre } = route.params;
@@ -35,11 +39,32 @@ export default function CentreModifie({ route }) {
     setErrorMessage('')
    } catch (error) {
     
+    setErrorMessage('Veuillez essayer plus tard ')
+
    }
+
+  };
+useEffect(() => {
+  const backAction = () => {  
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate("nav");
+    }
+
+    return true; // Return true to prevent default behavior (going back)
   };
 
+  const backHandler = BackHandler.addEventListener(
+    'hardwareBackPress',
+    backAction
+  );
+
+  return () => backHandler.remove(); // Cleanup function
+
+}, [navigation]);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundC }}>
       <View style={styles.container}>
         <KeyboardAwareScrollView>
           <View style={styles.header}>
@@ -159,7 +184,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 31,
     fontWeight: '700',
-    color: '#1D2A32',
+    color: secondColor,
     marginBottom: 6,
   },
   subtitle: {
@@ -231,8 +256,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
-    backgroundColor: '#075eec',
-    borderColor: '#075eec',
+    backgroundColor: secondColor,
+    borderColor: secondColor,
   },
   btnText: {
     fontSize: 18,

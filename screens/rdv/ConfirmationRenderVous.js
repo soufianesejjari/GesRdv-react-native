@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
 import { Alert } from 'react-native';
 
@@ -20,6 +21,7 @@ import {
   fetchaddRendezsFinale,
   selectSuccesAdd
 } from '../../redux/reducers/AddRendezSlice';
+import { backgroundC, lastColor, secondColor, thirdColor } from '../ConfigTheme';
 
 export default function ConfirmationRendezVous({navigation}) {
   const route = useRoute();
@@ -29,7 +31,29 @@ export default function ConfirmationRendezVous({navigation}) {
   const succes = useSelector(selectSuccesAdd)
   const { rendezVous } = route.params;
 const rendez = useSelector(selectRendez);
+
+
+useEffect(() => {
+  const backAction = () => {  
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate("nav");
+    }
+
+    return true; // Return true to prevent default behavior (going back)
+  };
+
+  const backHandler = BackHandler.addEventListener(
+    'hardwareBackPress',
+    backAction
+  );
+
+  return () => backHandler.remove(); // Cleanup function
+
+}, [navigation]); // Dependency array to ensure effect is re-run if navigation changes
   const handleSaveRdv = () => {
+    
     if (rendezVous) {
       console.log(
         'Before slot:',
@@ -69,7 +93,7 @@ const rendez = useSelector(selectRendez);
       <View style={styles.container}>
         <View style={styles.alert}>
           <View style={styles.alertIcon}>
-            <FeatherIcon color="#fff" name="check-circle" size={42} />
+            <FeatherIcon color={backgroundC} name="check-circle" size={42} />
           </View>
 
           <Text style={styles.alertTitle}>Confirmation</Text>
@@ -123,7 +147,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
-    backgroundColor: '#ff7117',
+    backgroundColor: secondColor,
   },
   alertTitle: {
     marginBottom: 16,
@@ -152,8 +176,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderWidth: 1,
-    backgroundColor: '#000',
-    borderColor: '#000',
+    backgroundColor: secondColor,
+    borderColor: secondColor,
   },
   btnText: {
     fontSize: 17,

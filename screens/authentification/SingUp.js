@@ -40,10 +40,10 @@ export default function Inscription({ navigation }) {
       setError('Veuillez remplir tous les champs.');
       return;
     }
-    if (!form.email.endsWith('com')) {
-        setError('Veuillez utiliser une adresse e-mail se terminant par .com .');
-        return;
-      }
+    if (!/\S+@\S+\.\S+/.test(form.email)) {
+      setError('Veuillez utiliser une adresse e-mail valide.');
+      return;
+    }
 try {
   dispatch(inscreption (form))
 } catch (error) {
@@ -61,6 +61,7 @@ try {
 };
 
 if(isAuthenticated){
+  
   navigation.navigate('nav')
 }
 
@@ -132,7 +133,7 @@ if(isAuthenticated){
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
-                keyboardType="phone-number"
+                keyboardType="phone-pad"
                 onChangeText={telephone => setForm({ ...form, telephone })}
                 placeholder="06......"
                 placeholderTextColor="#6b7280"

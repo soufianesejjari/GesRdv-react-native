@@ -9,10 +9,15 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { createCentre } from '../../services/centreService';
+import { createOneCentre } from '../../services/centreService';
 import { secondColor } from '../ConfigTheme';
+import { useDispatch } from 'react-redux';
+import { fetchCenters } from '../../redux/reducers/CentresSlice';
+import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddCentre() {
+  const dispatch=useDispatch()
   const [form, setForm] = useState({
     nom: '',
     adresse: '',
@@ -22,26 +27,38 @@ export default function AddCentre() {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigation = useNavigation()
 
   const handleCreate = async() => {
+    setErrorMessage('');
+
     if (!form.nom || !form.adresse || !form.telephone || !form.email || !form.siteWeb) {
         setErrorMessage('Veuillez remplir tous les champs.');
-        return;
-      }   try {
-    await createCentre(form)
- // Afficher un message de succès
- setSuccessMessage('Le centre a été ajouté avec succès.');
- setErrorMessage('')
- // Rediriger vers une autre page après un délai de 2 secondes
- setTimeout(() => {
-   navigation.navigate('dahsboard');
- }, 2000);
+      // ...
+    }
+   
+          try {
+            await createOneCentre(form)
+            console.log("start add centres");
+            // Afficher un message de succès
+            setSuccessMessage('Le centre a été ajouté avec succès.');
+            setErrorMessage('');
+            dispatch(fetchCenters());
+            // Rediriger vers une autre page après un délai de 2 secondes
+            setTimeout(() => {
+              navigation.navigate('Dashboard');
+            }, 1000);
 
-    console.log('Create du centre avec les données:', form);
-   } catch (error) {
-    
-   }
-  };
+            console.log('Create du centre avec les données:', form);
+          } catch (error) {
+            console.log("start add centres", error);
+          }
+        };
+
+ 
+
+   
+  
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>

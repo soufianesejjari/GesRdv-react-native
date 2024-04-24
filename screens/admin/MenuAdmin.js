@@ -28,7 +28,7 @@ function MenuAdmin() {
       }, // Add vertical margin between items
     }}>
       <Drawer.Screen name="Dashboard" component={Dashboard} />
-      <Drawer.Screen name="Centers " component={Elements} initialParams={{ columnss: columns }}  />
+      <Drawer.Screen name="Centers" component={Elements} initialParams={{ columnss: columns }}  />
 
       <Drawer.Screen name="Ajoutez Centre " component={AddCentre} />
       <Drawer.Screen name="Profile " component={Profile} />

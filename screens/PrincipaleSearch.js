@@ -1,12 +1,16 @@
+/**
+ * @file FILEPATH: /c:/Users/sejja/Documents/master_s2/semantique/GesRen/GesRDv/screens/PrincipaleSearch.js
+ * @description This file contains the code for the SearchSlotsScreen component, which is responsible for rendering a screen where users can search for available time slots for appointments.
+ */
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView, BackHandler, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCenters } from '../redux/reducers/CentresSlice';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { getAvalaibleCreneau } from '../services/RendezVousService';
 import generateRendezVousPDF from '../services/generateRendezVousPDF';
-import { fetchRendezs, selectError, selectLoading, selectRendezs } from '../redux/reducers/RdvSlice';
+import { fetchRendezs, fetchRendezsReset, fetchRendezsStart, selectError, selectLoading, selectRendezs ,selectStared } from '../redux/reducers/RdvSlice';
 import { fetchaddRendez, selectErrorAdd, selectLoadingAdd, selectRendez } from '../redux/reducers/AddRendezSlice';
 import { Card, Button as BtnR} from 'react-native-paper';
 import { backgroundC, darkGreen, secondColor, thirdColor } from './ConfigTheme';
@@ -14,7 +18,9 @@ import { backgroundC, darkGreen, secondColor, thirdColor } from './ConfigTheme';
 const SearchSlotsScreen = ({navigation}) => {
 
   useEffect(() => {
-    const backAction = () => {
+    const backAction = () => { 
+      dispatch(fetchRendezsReset()) 
+      setSearchResult(availableCreneau)
      setResulMode(false)
      setCentreId(null)
      setCentre(null)
@@ -36,6 +42,7 @@ const SearchSlotsScreen = ({navigation}) => {
   const availableCreneau=useSelector(selectRendezs)
   const isloading=useSelector(selectLoading)
   const error=useSelector(selectError)
+  const isStarted=useSelector(selectStared)
 
 const [isStart,setIsStart]= useState(false)
   const [centre, setCentre] = useState('');
@@ -48,7 +55,7 @@ const [resultMode,setResulMode]= useState(false);
 
 
   const centres = useSelector(selectCenters);
-
+const [alertResult,setAlertResult]=useState();
   //pickel for date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -85,8 +92,8 @@ const [resultMode,setResulMode]= useState(false);
   const searchSlots = async () => {
 
     if(!centreId || !date ){
-
-      return
+          Alert.alert('Donnes Vides', 'Vous devez obligatoirement sélectionner un centre et une date');
+      return 
     }
 
     /*   try {
@@ -102,19 +109,32 @@ const [resultMode,setResulMode]= useState(false);
       } */
 
       dispatch(fetchRendezs(centreId, date, creneau))
-   setResulMode(true)
+
+
+      
     };
+
+    
     useEffect(() => {
       if (!isloading && availableCreneau.length > 0) {
+        setResulMode(true)
         setSearchResult(availableCreneau);
+
+        if (availableCreneau.length > 0 && availableCreneau) {
+          // Additional code to handle the search result
+        } else {
+
+        }
       }
+      
     }, [isloading, availableCreneau]);
+
     useEffect(() => {
-      if (selectRendez.length >0) {
-        console.log('added succesfuly')
-       // alert(selectRendez);
-      }
-    }, [selectRendez]);
+      if (isStarted &&  availableCreneau.length==0) {
+        Alert.alert('Pas de créneau disponible', 'Aucun créneau disponible pour cette date');
+
+    }
+    }, [availableCreneau]);
 
     const handleBookSlot = async (slot) => {
       const normalizedRDV ={

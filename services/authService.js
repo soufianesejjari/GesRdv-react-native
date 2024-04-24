@@ -13,13 +13,13 @@ const authService = {
 
       return response.data;
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.log('Error logging in:', error);
       throw error;
     }
   },
   registre: async (credentials) => {
     try {
-      console.log("est ; ",credentials)
+      console.log("est Registre; ",credentials)
 
       const response = await axios.post(`${API_URL}/auth/inscreption`, credentials);
       console.log("data ; ",response.data)

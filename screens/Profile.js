@@ -67,11 +67,8 @@ export default  function Profile() {
           <TouchableOpacity
             onPress={() => {
                 dispatch(fetchlougOut());
-                navigation.navigate('lougout')
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: 'lougout' }],
-                });
+             
+                // Refresh the app
             }}>
             <View style={styles.profileAction}>
                 

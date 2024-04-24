@@ -38,10 +38,10 @@ export const fetchCenters = () => async (dispatch) => {
   
   dispatch(fetchCentersStart());
   try {
-    console.log('e=on est loooooooo centres')
 
     const response = await centerSearch();
     const centers = response.data; // Supposons que les données des centres se trouvent dans la propriété data de la réponse HTTP
+    console.log('e=on est loooooooo centres',centers)
 
     const normalizedCenters = centers.map((center) => ({
       id:center.id,

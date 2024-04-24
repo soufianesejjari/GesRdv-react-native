@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import MyLocalImage from '../../assets/imageForLogin.png'
+import { CommonActions } from '@react-navigation/native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { login, selectAuthError, selectAuthLoading, selectIsAuthenticated } from '../../redux/reducers/authSlice';
@@ -34,18 +35,27 @@ export default function LoginComponent({ navigation }) {
       setError('Veuillez remplir tous les champs');
       return;
     }
+  
+    // Clear any existing error
+    setError(null);
+  
+    // Dispatch the login action
     dispatch(login({ email: form.email, password: form.password }))
-      .catch(() => {
-        setError("email et/ou mot de passe incorrect(s)");
-      });
-      if(!isAuthenticated){
-        setError("email et/ou mot de passe incorrect(s)");
+      .then(() => {
+        // Add a delay of 1 second before navigating
+        setTimeout(() => {
+          if(errorAuth){
+            setError("Email et/ou mot de passe incorrect(s)");
 
-      }
-      else{
-        navigation.navigate('nav')
-      }
+          }
+        }, 1000);
+      })
+      .catch(() => {
+        // Handle authentication error
+        setError("Email et/ou mot de passe incorrect(s)");
+      });
   };
+  
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
