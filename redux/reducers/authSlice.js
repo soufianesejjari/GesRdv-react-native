@@ -29,7 +29,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     logout(state) {
-      console.log("logu action")
+   //   console.log("logu action")
       state.isAuthenticated = false;
       state.user = null;
       state.isAdmin = false;
@@ -51,15 +51,21 @@ export const login = (credentials) => async (dispatch) => {
     await AsyncStorage.setItem('roles', roles);
     const isAdmin = roles.includes("ADMIN");
     if (isAdmin) {
+
+
       await AsyncStorage.setItem('role', "ADMIN");
+
+      dispatch(loginAdmin());
+
     } else {
-     // console.warn("rrrrrrrrrrrrrrrrr", roles);
     }
     await AsyncStorage.setItem('mail', mail);
     await AsyncStorage.setItem('userName', userName);
-    dispatch(loginAdmin());
     dispatch(loginSuccess(token));
   } catch (error) {
+
+
+    
     dispatch(loginFailure(error.message));
   }
 };

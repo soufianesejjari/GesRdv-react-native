@@ -50,7 +50,7 @@ export default function Main() {
       navigation.navigate('Login');
     } else if (isAdmin) {
       // If authenticated as admin, navigate to the admin menu
-      
+
       navigation.navigate('MenuAdmin');
     } else {
       // If authenticated as a regular user, navigate to the main tabs
@@ -75,3 +75,4 @@ export default function Main() {
     </Provider>
   );
 }
+// 
