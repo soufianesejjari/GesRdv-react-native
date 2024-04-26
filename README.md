@@ -1,6 +1,9 @@
-# GesRDv
 
-GesRDv is a React Native application designed to manage appointments.
+# Overview 
+
+Gestion de rendez-vous (Appointment Management): A web-based and mobile appointment management system developed using Spring Boot for the backend, incorporating Spring Security and Spring Data JPA, and React Native with Redux for the frontend mobile application. The system facilitates the scheduling of medical appointments, offering functionalities like user authentication, real-time availability checking, and appointment confirmation.
+
+[Back-end  Spring Boot RestApi  Repository](https://github.com/soufianesejjari/GesRDV)
 
 ## Table of Contents
 
