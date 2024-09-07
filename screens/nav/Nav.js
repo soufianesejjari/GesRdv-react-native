@@ -1,66 +1,61 @@
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import SearchSlotsScreen from '../PrincipaleSearch';
-import Center from '../Center';
-import Profile from '../Profile';
-import CentersScreen from '../CentersScreen';
-import MenuAdmin from '../admin/MenuAdmin';
-import { secondColor } from '../ConfigTheme';
+import * as React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import SearchSlotsScreen from '../PrincipaleSearch'
+import Center from '../Center'
+import Profile from '../Profile'
+import CentersScreen from '../CentersScreen'
+import MenuAdmin from '../admin/MenuAdmin'
+import { secondColor } from '../ConfigTheme'
 
-
-
-
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 const MyTabs = () => {
-
   const tabBarOptions = {
-    
-    tabBarInactiveBackgroundColor :  '#8ecae6', 
+    tabBarInactiveBackgroundColor: '#8ecae6',
 
-    tabBarActiveBackgroundColor :  '#8ecae6', 
+    tabBarActiveBackgroundColor: '#8ecae6',
     activeTintColor: secondColor, // Couleur de l'icône active
-    inactiveTintColor:  '#023047', // Couleur de l'icône inactive
+    inactiveTintColor: '#023047', // Couleur de l'icône inactive
     labelStyle: {
       fontSize: 15, // Taille du texte
-      fontWeight: 'bold', // Poids de la police du texte
-    },
-   // tabBarStyle: {  backgroundColor:  '#8ecae6', 
-  //},
-
- 
-  };
+      fontWeight: 'bold' // Poids de la police du texte
+    }
+    // tabBarStyle: {  backgroundColor:  '#8ecae6',
+    // },
+  }
   const screenOpp = {
-    tabBarInactiveBackgroundColor :  '#e8ecf4', 
+    tabBarInactiveBackgroundColor: '#e8ecf4',
 
-    tabBarActiveBackgroundColor :  '#e8ecf4', 
-    activeTintColor:  '#fb8500',
-    inactiveTintColor: '#023047', 
+    tabBarActiveBackgroundColor: '#e8ecf4',
+    activeTintColor: '#fb8500',
+    inactiveTintColor: '#023047',
     labelStyle: {
-      fontSize: 15, 
-      fontWeight: 'bold', 
-    },
-   // tabBarStyle: {  backgroundColor: isDarkMode ? '#1F2937' : '#8ecae6', 
-  //},
-
- 
-  };
+      fontSize: 15,
+      fontWeight: 'bold'
+    }
+    // tabBarStyle: {  backgroundColor: isDarkMode ? '#1F2937' : '#8ecae6',
+    // },
+  }
 
   return (
-    <Tab.Navigator initialRouteName="Home"   tabBarOptions={tabBarOptions} screenOptions={screenOpp}>
+    <Tab.Navigator
+      initialRouteName='Home'
+      tabBarOptions={tabBarOptions}
+      screenOptions={screenOpp}
+    >
       <Tab.Screen
-        name="Home"
+        name='Home'
         component={SearchSlotsScreen}
         options={{
-          headerShown:false ,
+          headerShown: false,
           tabBarLabel: 'Accueil',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
-          ),
+            <MaterialCommunityIcons name='home' color={color} size={size} />
+          )
         }}
       />
-  {/*     <Tab.Screen
+      {/*     <Tab.Screen
         name="Centers"
         component={MenuAdmin}
         options={{
@@ -73,32 +68,36 @@ const MyTabs = () => {
         }}
       /> */}
       <Tab.Screen
-        name="Centers"
+        name='Centers'
         component={CentersScreen}
         options={{
-          headerShown:false ,
+          headerShown: false,
 
           tabBarLabel: 'Centers',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="format-list-bulleted" color={color} size={size} />
-          ),
+            <MaterialCommunityIcons
+              name='format-list-bulleted'
+              color={color}
+              size={size}
+            />
+          )
         }}
       />
-       
+
       <Tab.Screen
-        name="Profile"
+        name='Profile'
         component={Profile}
         options={{
-          headerShown:false ,
+          headerShown: false,
 
           tabBarLabel: 'Profil',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
+            <MaterialCommunityIcons name='account' color={color} size={size} />
+          )
         }}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default MyTabs;
+export default MyTabs
