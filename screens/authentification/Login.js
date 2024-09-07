@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   SafeAreaView,
@@ -9,53 +9,57 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
-} from 'react-native';
+  ScrollView
+} from 'react-native'
 import MyLocalImage from '../../assets/imageForLogin.png'
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { login, selectAuthError, selectAuthLoading, selectIsAuthenticated } from '../../redux/reducers/authSlice';
-import { lastColor, secondColor } from '../ConfigTheme';
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  login,
+  selectAuthError,
+  selectAuthLoading,
+  selectIsAuthenticated
+} from '../../redux/reducers/authSlice'
+import { lastColor, secondColor } from '../ConfigTheme'
 
-export default function LoginComponent({ navigation }) {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isLoading = useSelector(selectAuthLoading);
-  const errorAuth =useSelector(selectAuthError)
+export default function LoginComponent ({ navigation }) {
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const isLoading = useSelector(selectAuthLoading)
+  const errorAuth = useSelector(selectAuthError)
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     email: '',
-    password: '',
-  });
+    password: ''
+  })
 
   const handleSignIn = () => {
     if (!form.email || !form.password) {
-      setError('Veuillez remplir tous les champs');
-      return;
+      setError('Veuillez remplir tous les champs')
+      return
     }
-  
+
     // Clear any existing error
-    setError(null);
-  
+    setError(null)
+
     // Dispatch the login action
     dispatch(login({ email: form.email, password: form.password }))
       .then(() => {
         // Add a delay of 1 second before navigating
         setTimeout(() => {
-          if(errorAuth){
-            setError("Email et/ou mot de passe incorrect(s)");
-
+          if (errorAuth) {
+            setError('Email et/ou mot de passe incorrect(s)')
           }
-        }, 1000);
+        }, 1000)
       })
       .catch(() => {
         // Handle authentication error
-        setError("Email et/ou mot de passe incorrect(s)");
-      });
-  };
-  
+        setError('Email et/ou mot de passe incorrect(s)')
+      })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -65,14 +69,12 @@ export default function LoginComponent({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.header}>
             <Image
-              alt=""
-              resizeMode="contain"
+              alt=''
+              resizeMode='contain'
               style={styles.headerImg}
               source={MyLocalImage}
             />
-            <Text style={styles.title}>
-              Connectez-vous à votre compte
-            </Text>
+            <Text style={styles.title}>Connectez-vous à votre compte</Text>
             <Text style={styles.subtitle}>
               Connectez-vous pour prendre rendez-vous dans les centres médicaux
             </Text>
@@ -82,12 +84,12 @@ export default function LoginComponent({ navigation }) {
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Adresse e-mail</Text>
               <TextInput
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={email => setForm({ ...form, email })}
-                placeholder="exemple@centremedical.ma"
-                placeholderTextColor="#6b7280"
+                keyboardType='email-address'
+                onChangeText={(email) => setForm({ ...form, email })}
+                placeholder='exemple@centremedical.ma'
+                placeholderTextColor='#6b7280'
                 style={styles.inputControl}
                 value={form.email}
               />
@@ -97,25 +99,29 @@ export default function LoginComponent({ navigation }) {
               <Text style={styles.inputLabel}>Mot de passe</Text>
               <TextInput
                 autoCorrect={false}
-                onChangeText={password => setForm({ ...form, password })}
-                placeholder="********"
-                placeholderTextColor="#6b7280"
+                onChangeText={(password) => setForm({ ...form, password })}
+                placeholder='********'
+                placeholderTextColor='#6b7280'
                 style={styles.inputControl}
-                secureTextEntry={true}
+                secureTextEntry
                 value={form.password}
               />
             </View>
 
-            {error ? (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            ) : null}
+            {error
+              ? (
+                <View style={styles.errorContainer}>
+                  <Text style={styles.errorText}>{error}</Text>
+                </View>
+                )
+              : null}
 
             <View style={styles.formAction}>
               <TouchableOpacity onPress={handleSignIn}>
                 <View style={styles.btn}>
-                  <Text style={styles.btnText} disabled={isLoading}>Se connecter</Text>
+                  <Text style={styles.btnText} disabled={isLoading}>
+                    Se connecter
+                  </Text>
                   {isLoading && <Text>Loading...</Text>}
                 </View>
               </TouchableOpacity>
@@ -123,57 +129,58 @@ export default function LoginComponent({ navigation }) {
 
             <TouchableOpacity onPress={() => navigation.navigate('SingUp')}>
               <Text style={styles.formFooter}>
-                Vous n'avez pas de compte ? <Text style={styles.link}>Inscrivez-vous</Text>
+                Vous n'avez pas de compte ?{' '}
+                <Text style={styles.link}>Inscrivez-vous</Text>
               </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8ecf4',
+    backgroundColor: '#e8ecf4'
   },
   scrollView: {
     flexGrow: 1,
-    padding: 24,
+    padding: 24
   },
   header: {
     marginVertical: 36,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   headerImg: {
     width: 80,
     height: 80,
-    marginBottom: 36,
+    marginBottom: 36
   },
   title: {
     fontSize: 27,
     fontWeight: '700',
     color: secondColor,
-    marginBottom: 6,
+    marginBottom: 6
   },
   subtitle: {
     fontSize: 15,
     fontWeight: '500',
     color: '#929292',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   form: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   input: {
-    marginBottom: 16,
+    marginBottom: 16
   },
   inputLabel: {
     fontSize: 17,
     fontWeight: '600',
     color: '#222',
-    marginBottom: 8,
+    marginBottom: 8
   },
   inputControl: {
     height: 44,
@@ -182,21 +189,21 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     fontSize: 15,
     fontWeight: '500',
-    color: '#222',
+    color: '#222'
   },
   errorContainer: {
     backgroundColor: '#ffccc7',
     padding: 8,
     borderRadius: 8,
-    marginBottom: 16,
+    marginBottom: 16
   },
   errorText: {
     textAlign: 'center',
     color: '#ff4d4f',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   formAction: {
-    marginVertical: 24,
+    marginVertical: 24
   },
   btn: {
     flexDirection: 'row',
@@ -207,23 +214,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderWidth: 1,
     backgroundColor: secondColor,
-    borderColor: secondColor,
+    borderColor: secondColor
   },
   btnText: {
     fontSize: 18,
     lineHeight: 26,
     fontWeight: '600',
-    color: '#fff',
+    color: '#fff'
   },
   formFooter: {
     fontSize: 17,
     fontWeight: '600',
     color: '#222',
     textAlign: 'center',
-    letterSpacing: 0.15,
+    letterSpacing: 0.15
   },
   link: {
     textDecorationLine: 'underline',
-    color: lastColor,
-  },
-});
+    color: lastColor
+  }
+})

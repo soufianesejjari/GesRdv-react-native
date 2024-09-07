@@ -8,7 +8,7 @@ export const generateRendezVousPDF = async (center, date, userId) => {
   .create()
   .setMediaBox(200, 200)
  // .drawText(content)
- 
+
       // Add content to the PDF
     //  const page = pdfDoc.addPage(); // Check if page is undefined
       if (page) {
@@ -28,7 +28,6 @@ export const generateRendezVousPDF = async (center, date, userId) => {
     // Do stuff with your shiny new PDF!
   });
 
-  
       } else {
         throw new Error('Failed to create PDF page');
       }

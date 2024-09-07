@@ -1,24 +1,21 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   SafeAreaView,
   View,
   Text,
-  TouchableOpacity,
-} from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+  TouchableOpacity
+} from 'react-native'
+import FeatherIcon from 'react-native-vector-icons/Feather'
 
-export default function AlertSvaeRendezVous() {
+export default function AlertSvaeRendezVous () {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#de8744' }}>
       <View style={styles.container}>
         <View style={styles.alert}>
           <View style={styles.alertContent}>
             <View style={styles.alertTop}>
-              <FeatherIcon
-                color="#fae4a8"
-                name="check-circle"
-                size={14} />
+              <FeatherIcon color='#fae4a8' name='check-circle' size={14} />
 
               <Text style={styles.alertTopText}>All done!</Text>
             </View>
@@ -35,7 +32,8 @@ export default function AlertSvaeRendezVous() {
           <TouchableOpacity
             onPress={() => {
               // handle onPress
-            }}>
+            }}
+          >
             <View style={styles.btn}>
               <Text style={styles.btnText}>OK</Text>
             </View>
@@ -43,7 +41,7 @@ export default function AlertSvaeRendezVous() {
         </View>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
     padding: 24,
     flexGrow: 1,
     flexShrink: 1,
-    flexBasis: 0,
+    flexBasis: 0
   },
   /** Alert */
   alert: {
@@ -60,24 +58,24 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     flexGrow: 1,
     flexShrink: 1,
-    flexBasis: 0,
+    flexBasis: 0
   },
   alertContent: {
     marginTop: 'auto',
-    marginBottom: 'auto',
+    marginBottom: 'auto'
   },
   alertTop: {
     marginBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   alertTopText: {
     fontSize: 17,
     fontWeight: '500',
     marginLeft: 4,
     color: '#fae4a8',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   alertTitle: {
     fontSize: 32,
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#fff',
     marginBottom: 12,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   alertMessage: {
     fontSize: 16,
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#fae4a8',
     textAlign: 'center',
-    marginBottom: 36,
+    marginBottom: 36
   },
   /** Button */
   btn: {
@@ -105,12 +103,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderWidth: 1,
     backgroundColor: '#fff',
-    borderColor: '#fff',
+    borderColor: '#fff'
   },
   btnText: {
     fontSize: 17,
     lineHeight: 24,
     fontWeight: '600',
-    color: '#000',
-  },
-});
+    color: '#000'
+  }
+})

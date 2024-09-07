@@ -1,9 +1,8 @@
-
-# Overview 
+# Overview
 
 Gestion de rendez-vous (Appointment Management): A web-based and mobile appointment management system developed using Spring Boot for the backend, incorporating Spring Security and Spring Data JPA, and React Native with Redux for the frontend mobile application. The system facilitates the scheduling of medical appointments, offering functionalities like user authentication, real-time availability checking, and appointment confirmation.
 
-[Back-end  Spring Boot RestApi  Repository](https://github.com/soufianesejjari/GesRDV)
+[Back-end Spring Boot RestApi Repository](https://github.com/soufianesejjari/GesRDV)
 
 ## Table of Contents
 
@@ -42,6 +41,7 @@ The objective of GesRDv is to provide a simple and efficient way to manage appoi
 - Center Details: Detailed information about each center.
 - User Profile: Users can view and update their profile information.
 - Responsive Design: The app is responsive and works on mobile devices.
+
 ## Screens
 
 - LoginScreen - This screen is used for user authentication.
