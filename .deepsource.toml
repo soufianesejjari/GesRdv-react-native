@@ -1,0 +1,22 @@
+version = 1
+
+[[analyzers]]
+name = "cfn-lint"
+type = "community"
+
+[[analyzers]]
+name = "dart-analyze"
+type = "community"
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = ["nodejs"]
+
+[[transformers]]
+name = "prettier"
+
+[[transformers]]
+name = "standardjs"
